@@ -17,10 +17,10 @@ namespace AsyncDemos
 
         static void Main(string[] args)
         {
-            ThreadOverhead();
+            //ThreadOverhead();
             //ThreadCreationTime();
             //TaskCreationTime();
-            //SharedVsLocalState();
+            SharedVsLocalState();
 
             Console.ReadKey();
         }
@@ -153,15 +153,14 @@ namespace AsyncDemos
             t1.Name = "t1";
             t1.Start();
 
-
             Thread t2 = new Thread(new ThreadStart(DoWork));
             t2.Name = "t2";
             t2.Start();
 
-
             Thread t3 = new Thread(new ThreadStart(DoWork));
             t3.Name = "t3";
             t3.Start();
+
 
             Console.WriteLine("Ending SharedVsLocalState method");
 
@@ -174,8 +173,8 @@ namespace AsyncDemos
 
             #region   #  Local  #
 
-            int x = 10;
-            Console.WriteLine($"Thread '{Thread.CurrentThread.Name}' x: {x}");
+            //int x = 10;
+            //Console.WriteLine($"Thread '{Thread.CurrentThread.Name}' x: {x}");
 
             #endregion
 
@@ -198,10 +197,10 @@ namespace AsyncDemos
             #region   #  Shared List #
 
 
-            //for (int i =0; i < 100; i++)
-            //{
-            //    s_numbers.Add(i);
-            //}
+            for (int i = 0; i < 1000; i++)
+            {
+                s_numbers.Add(i);
+            }
 
 
             #endregion
