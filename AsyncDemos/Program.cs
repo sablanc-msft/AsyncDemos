@@ -4,15 +4,25 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace AsyncDemos
 {
     class Program
     {
+        private const int ONE_MB = 1024 * 1024;
+
+        private static ManualResetEvent s_manualResetEvent = new ManualResetEvent(false);
+        
+
         static void Main(string[] args)
         {
-            //ThreadOverhead();
-            SharedVsLocalState();
+            ThreadOverhead();
+            //ThreadCreationTime();
+            //TaskCreationTime();
+            //SharedVsLocalState();
+
+            Console.ReadKey();
         }
 
 
@@ -21,30 +31,28 @@ namespace AsyncDemos
 
         private static void ThreadOverhead()
         {
-            const int ONE_MB = 1024 * 1024;
+            int numberOfThreads = 0;
 
-            using (ManualResetEvent manualResetEvent = new ManualResetEvent(false))
+            try
             {
-                int numberOfThreads = 0;
-
-                try
+                while (true)
                 {
-                    while (true)
-                    {
-                        Thread thread = new Thread(WaitOnEvent);
+                    Thread thread = new Thread(WaitOnEvent);
 
-                        thread.Start(manualResetEvent);
+                    thread.Start(s_manualResetEvent);
 
-                        long virtualMemorySize = Process.GetCurrentProcess().VirtualMemorySize64 / ONE_MB;
-                        Console.WriteLine($"{++numberOfThreads}: {virtualMemorySize} MB");
-                    }
+                    long virtualMemorySize = Process.GetCurrentProcess().VirtualMemorySize64 / ONE_MB;
+                    Console.WriteLine($"{++numberOfThreads}: {virtualMemorySize} MB");
                 }
-                catch (OutOfMemoryException ex)
-                {
-                    Console.WriteLine($"Out of memory after {numberOfThreads} threads.");
-                    Debugger.Break();
-                    manualResetEvent.Set();
-                }
+            }
+            catch (OutOfMemoryException ex)
+            {
+                Console.WriteLine($"Out of memory after {numberOfThreads} threads.");
+                Debugger.Break();
+            }
+            finally
+            {
+                s_manualResetEvent.Set();
             }
 
         }
@@ -53,6 +61,76 @@ namespace AsyncDemos
         {
             ManualResetEvent manualResetEvent = (ManualResetEvent)arg;
             manualResetEvent.WaitOne();
+        }
+
+
+        #endregion
+
+
+        #region   #  Thread Creation Time  #
+
+
+        private static void ThreadCreationTime()
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            try
+            {
+                for (int i = 0; i < 1000; i++)
+                {
+                    Thread thread = new Thread(WaitOnEvent);
+
+                    thread.Start(s_manualResetEvent);
+                }
+
+                stopwatch.Stop();
+
+                long virtualMemorySize = Process.GetCurrentProcess().VirtualMemorySize64 / ONE_MB;
+
+                Console.WriteLine($"Process Memory Size: {virtualMemorySize} MB");
+            }
+            finally
+            {
+                s_manualResetEvent.Set();
+            }
+
+            double averageThreadCreationTime = stopwatch.Elapsed.TotalMilliseconds / 1000;
+
+            Console.WriteLine($"\nAverage Thread Creation Time = {averageThreadCreationTime:F3} ms.");
+        }
+
+
+        #endregion
+
+
+        #region   #  Task Creation Time  #
+
+
+        private static void TaskCreationTime()
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            try
+            {
+                for (int i = 0; i < 1000; i++)
+                {
+                    Task.Factory.StartNew( () => s_manualResetEvent.WaitOne(), TaskCreationOptions.LongRunning);
+                }
+
+                stopwatch.Stop();
+
+                long virtualMemorySize = Process.GetCurrentProcess().VirtualMemorySize64 / ONE_MB;
+
+                Console.WriteLine($"Process Memory Size: {virtualMemorySize} MB");
+            }
+            finally
+            {
+                s_manualResetEvent.Set();
+            }
+
+            double averageThreadCreationTime = stopwatch.Elapsed.TotalMilliseconds / 1000;
+
+            Console.WriteLine($"\nAverage Thread Creation Time = {averageThreadCreationTime:F3} ms.");
         }
 
 

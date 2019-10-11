@@ -11,7 +11,7 @@ namespace ThreadPoolLatency
 {
     class Program
     {
-        const int ITERATIONS = 100;
+        const int ITERATIONS = 1000;
         static CountdownEvent done = new CountdownEvent(ITERATIONS);
 
         static readonly HttpClient s_httpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds( 180 ) };
@@ -25,8 +25,6 @@ namespace ThreadPoolLatency
 
         public static void Main(string[] args)
         {
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
             //Min_Threads_Default();
 
             //Average latency = 2131.2303063 ms.
@@ -34,7 +32,7 @@ namespace ThreadPoolLatency
             //Run Time = 25294.4921 ms.
 
 
-            //Min_Threads_Default_LongRunning();
+            Min_Threads_Default_LongRunning();
 
             //Average latency = 13.350484 ms.
             //Average duration = 23093.8704251 ms.
@@ -65,14 +63,14 @@ namespace ThreadPoolLatency
             //Run Time 2nd = 74257.0167 ms.
 
 
-            Async_Min_1000();
+            //Async_Min_1000();
 
             //Average latency 1st = 0.0265977 ms.
             //Average latency 2nd = 0.0118727 ms.
-            
+
             //Average duration 1st = 40119.0676717 ms.
             //Average duration 2nd = 42996.6848702 ms.
-            
+
             //Run Time 1st = 72329.1381 ms.
             //Run Time 2nd = 76002.9685 ms.
 
@@ -322,17 +320,19 @@ namespace ThreadPoolLatency
 
         static void NetDelay()
         {
-            HttpWebRequest httpWebRequest = HttpWebRequest.CreateHttp("http://deelay.me/500/deelay.me/");
+            Thread.Sleep(4000);
 
-            HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();   // Initial roundtrip to server.
+            //HttpWebRequest httpWebRequest = HttpWebRequest.CreateHttp("http://localhost:19080");
 
-            string webPage = String.Empty;
+            //HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();   // Initial roundtrip to server.
 
-            Stream responsStream = httpWebResponse.GetResponseStream();        // Downloading the page contents.
-            using (var streamReader = new StreamReader(responsStream))
-            {
-                webPage = streamReader.ReadToEnd();
-            }
+            //string webPage = String.Empty;
+
+            //Stream responsStream = httpWebResponse.GetResponseStream();        // Downloading the page contents.
+            //using (var streamReader = new StreamReader(responsStream))
+            //{
+            //    webPage = streamReader.ReadToEnd();
+            //}
         }
 
         static Task NetDelayAsync()

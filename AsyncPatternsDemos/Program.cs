@@ -19,7 +19,7 @@ namespace AsyncPatternsDemos
 
         #endregion
 
-        private static readonly string s_url = "http://deelay.me/4000/https://www.microsoft.com/en-us/";
+        private static readonly string s_url = "http://deelay.me/2000/deelay.me/";
 
 
         static void Main(string[] args)
@@ -27,8 +27,8 @@ namespace AsyncPatternsDemos
             //Synchronous();
             //AsynchronousProgrammingModel();
             //TaskFromAPM();
-            //TaskExplicit();
-            TaskAsync().GetAwaiter().GetResult();
+            TaskExplicit();
+            //TaskAsync().GetAwaiter().GetResult();
 
             Console.ReadKey();
         }
