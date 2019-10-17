@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. ThreadPoolLatency", "Thr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4. AsyncPatternsDemos", "AsyncPatternsDemos\4. AsyncPatternsDemos.csproj", "{7402F931-BC27-479E-B552-2F0D33524450}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5. EmptyBodyAsyncOverhead", "EmptyBodyAsyncOverhead\5. EmptyBodyAsyncOverhead.csproj", "{3C3B0A15-270D-489C-8BAB-DF3B463A872B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapturingContext", "CapturingContext\CapturingContext.csproj", "{3B5CEF24-82CC-4513-B56D-2FB48088CC1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,22 @@ Global
 		{7402F931-BC27-479E-B552-2F0D33524450}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7402F931-BC27-479E-B552-2F0D33524450}.Release|x86.ActiveCfg = Release|Any CPU
 		{7402F931-BC27-479E-B552-2F0D33524450}.Release|x86.Build.0 = Release|Any CPU
+		{3C3B0A15-270D-489C-8BAB-DF3B463A872B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C3B0A15-270D-489C-8BAB-DF3B463A872B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C3B0A15-270D-489C-8BAB-DF3B463A872B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C3B0A15-270D-489C-8BAB-DF3B463A872B}.Debug|x86.Build.0 = Debug|Any CPU
+		{3C3B0A15-270D-489C-8BAB-DF3B463A872B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C3B0A15-270D-489C-8BAB-DF3B463A872B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C3B0A15-270D-489C-8BAB-DF3B463A872B}.Release|x86.ActiveCfg = Release|Any CPU
+		{3C3B0A15-270D-489C-8BAB-DF3B463A872B}.Release|x86.Build.0 = Release|Any CPU
+		{3B5CEF24-82CC-4513-B56D-2FB48088CC1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B5CEF24-82CC-4513-B56D-2FB48088CC1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B5CEF24-82CC-4513-B56D-2FB48088CC1A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3B5CEF24-82CC-4513-B56D-2FB48088CC1A}.Debug|x86.Build.0 = Debug|Any CPU
+		{3B5CEF24-82CC-4513-B56D-2FB48088CC1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B5CEF24-82CC-4513-B56D-2FB48088CC1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B5CEF24-82CC-4513-B56D-2FB48088CC1A}.Release|x86.ActiveCfg = Release|Any CPU
+		{3B5CEF24-82CC-4513-B56D-2FB48088CC1A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
